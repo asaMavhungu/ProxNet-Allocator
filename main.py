@@ -1,5 +1,6 @@
 import pandas as pd
 import argparse
+import os
 
 import math
 
@@ -22,9 +23,17 @@ def calculate_distance(cell1, cell2):
 	return math.sqrt((cell1.easting - cell2.easting)**2 + (cell1.northing - cell2.northing)**2)
 
 
+def is_valid_file(parser, arg):
+	if not os.path.isfile(arg):
+		parser.error(f"The file '{arg}' does not exist.")
+	elif not arg.endswith('.csv'):
+		parser.error("Invalid file format. Please provide a CSV file.")
+	return arg
+
+
 def main():
 	parser = argparse.ArgumentParser(description='Process cell towers data.')
-	parser.add_argument('--filename', '-f', type=str, default='cell_towers.csv', help='CSV file containing cell towers data')
+	parser.add_argument('--filename', '-f', type=lambda x: is_valid_file(parser, x), default='cell_towers.csv', help='CSV file containing cell towers data')
 
 
 	args = parser.parse_args()
