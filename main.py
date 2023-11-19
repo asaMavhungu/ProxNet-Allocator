@@ -62,6 +62,10 @@ def main():
 		cell.frequency = i+105
 		cells.append(cell)
 
+	# The remaining rows are assigned frequencies based on fartherst of the 6 closest distinct frequencies
+	# Keep track of the distance to the closest frequency from each of the frequencies.
+	# Assign the new cell's frequencies to the farthest of those 6 distinct frequencies
+
 	for i in range(len(raw_cells)):
 		new_cell = raw_cells.pop()
 
