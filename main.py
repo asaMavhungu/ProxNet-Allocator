@@ -1,5 +1,5 @@
 import pandas as pd
-import numpy as np
+import argparse
 
 import math
 
@@ -23,10 +23,16 @@ def calculate_distance(cell1, cell2):
 
 
 def main():
+	parser = argparse.ArgumentParser(description='Process cell towers data.')
+	parser.add_argument('--filename', '-f', type=str, default='cell_towers.csv', help='CSV file containing cell towers data')
+
+
+	args = parser.parse_args()
+
 	raw_cells = []
 	cells = []
 
-	data = pd.read_csv('cell_towers.csv')
+	data = pd.read_csv(args.filename)
 
 	# Iterate over the rows of the DataFrame and create Cell objects
 	for index, row in data.iterrows():
